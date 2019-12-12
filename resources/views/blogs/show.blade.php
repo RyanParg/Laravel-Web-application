@@ -4,6 +4,6 @@
 
 @section('content')
   <ul>
-    <li>Name: {{ $blog->name }}</li>
+    <li>Name: {{ $blog->title }}</li>
   </ul>
 @endsection

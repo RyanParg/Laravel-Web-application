@@ -16,6 +16,10 @@ Route::get('/', function () {
 });
 
 
-Route::get('blogs', 'BlogController@index');
+Route::get('blogs', 'BlogController@index')->name('blogs.index');
 
-Route::get('blogs/{id}', 'BlogController@show');
+Route::get('blogs/create', 'BlogController@create')->name('blogs.create');
+
+Route::post('blogs', 'BlogController@store')->name('blogs.store');
+
+Route::get('blogs/{id}', 'BlogController@show')->name('blogs.show');

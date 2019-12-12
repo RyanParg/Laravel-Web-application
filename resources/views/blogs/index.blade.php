@@ -6,9 +6,10 @@
   <p>All Blogs:</p>
   <ul>
     @foreach ($blogs as $blog)
-      <li>{{ $blog->title }}</li>
+      <li><a href="{{ route('blogs.show', ['id' => $blog->id])}}">{{ $blog->title }}</a></li>
 
     @endforeach
   </ul>
 
+  <a href="{{ route('blogs.create' )}}">Create Blog</a>
 @endsection
