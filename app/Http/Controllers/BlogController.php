@@ -37,7 +37,18 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request['title']);
+      $validatedData = $request->validate([
+        'title' => 'required|max:255',
+        'owner_id' => 'required|integer',
+      ]);
+
+      $b = new Page;
+      $b->title = $validatedData['title'];
+      $b->owner_id = $validatedData['owner_id'];
+      $b->save();
+
+      session()->flash('message', 'Page was created.');
+      return redirect()->route('blogs.index');
     }
 
     /**
