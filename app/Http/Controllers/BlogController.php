@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Page;
+use App\Owner;
 
 class BlogController extends Controller
 {
@@ -26,7 +27,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('blogs.create');
+        $owners = Owner::orderBy('name', 'asc')->get();
+        return view('blogs.create', ['owners' => $owners]);
     }
 
     /**
@@ -94,6 +96,9 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $blog = Page::findOrFail($id);
+        $blog->delete();
+
+        return redirect()->route('blogs.index')->with('message', 'Blog was deleted.');
     }
 }

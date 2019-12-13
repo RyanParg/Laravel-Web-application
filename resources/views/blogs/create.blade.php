@@ -8,8 +8,17 @@
     <p>Title: <input type="text" name="title"
       value="{{ old('title') }}"></p>
 
-    <p>User Id: <input type="text" name="owner_id"
-      value="{{ old('owner_id') }}"></p>
+    <p><select name="owner_id">
+      @foreach ($owners as $owner)
+        <option value="{{ $owner->id }}"
+          @if($owner->id == old('owner_id'))
+            selected="selected"
+          @endif
+        >{{ $owner->name }}</option>
+      @endforeach
+    </select>
+  </p>
+
 
     <input type="submit" value="Submit">
     <a href="{{ route('blogs.index')}}">Cancel</a>
