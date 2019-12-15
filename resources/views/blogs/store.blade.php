@@ -5,8 +5,8 @@
 @section('content')
   <p>All Blogs:</p>
   <ul>
-    @foreach ($blogs as $blog)
-      <li><a href="{{ route('blogs.show', ['id' => $blog->id])}}">{{ $blog->title }}</a></li>
+    @foreach ($users as $user)
+      <li><a href="{{ route('blogs.show', ['id' => $user->id])}}">{{ $blog->name }}</a></li>
 
     @endforeach
   </ul>

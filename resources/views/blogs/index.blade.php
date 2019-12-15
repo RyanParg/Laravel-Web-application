@@ -3,10 +3,10 @@
 @section('title', 'Blogs')
 
 @section('content')
-  <p>All Blogs:</p>
+  <p>All Users:</p>
   <ul>
-    @foreach ($blogs as $blog)
-      <li><a href="{{ route('blogs.show', ['id' => $blog->id])}}">{{ $blog->title }}</a></li>
+    @foreach ($users as $user)
+      <li><a href="{{ route('blogs.show', ['user' => $user])}}">{{ $user->name }}</a></li>
 
     @endforeach
   </ul>

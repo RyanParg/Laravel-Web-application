@@ -15,9 +15,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Page::all();
+        $users = Owner::all();
 
-        return view('blogs.index', ['blogs' => $blogs]);
+        return view('blogs.index', ['users' => $users]);
     }
 
     /**
@@ -59,10 +59,17 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Owner $user)
     {
-        $blog = Page::findOrFail($id);
-        return view('blogs.show', ['blog' => $blog]);
+        $pages = $user->pages;
+
+        return view('blogs.show', ['user' => $user, 'pages' => $pages]);
+    }
+
+    public function showUserPosts(Owner $user, Page $page)
+    {
+
+      return view('blogs.show_user_posts',['page' =>$page]);
     }
 
     /**

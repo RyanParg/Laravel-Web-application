@@ -13,6 +13,5 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(OwnerTableSeeder::class);
         $this->call(PageTableSeeder::class);
-        $this->call(PostTableSeeder::class);
     }
 }

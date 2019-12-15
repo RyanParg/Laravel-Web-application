@@ -13,4 +13,9 @@ class Owner extends Model
     {
       return $this->hasMany('App\Page');
     }
+
+    public function getRouteKeyName()
+    {
+    return 'name';
+  }
 }
