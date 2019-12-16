@@ -4,7 +4,7 @@
 
 @section('content')
 
-  <form method="POST" action="{{ route('blogs.storeUpdate',['page'=>$page]) }}">
+  <form method="POST" action="{{ route('blogs.storeUpdate',['user'=>$page->user,'page'=>$page]) }}">
     @csrf
 
     <p>Title: <input type="text" name="title"
@@ -16,5 +16,13 @@
     <input type="submit" value="Submit">
     <a href="{{ route('blogs.edit', ['user' => Auth::user()]) }}">Cancel</a>
   </form>
+
+
+  <form method="POST"
+  action="{{ route('blogs.destroy', ['user' => $page->user, 'page' => $page]) }}">
+  @csrf
+  @method('DELETE')
+  <button type="submit">Delete</button>
+</form>
 
 @endsection

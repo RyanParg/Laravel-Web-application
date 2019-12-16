@@ -99,7 +99,7 @@ class BlogController extends Controller
       return view('blogs.update', ['page' => $page]);
     }
 
-    public function storeUpdate(Request $request, Page $page)
+    public function storeUpdate(Request $request,User $user, Page $page)
     {
       $validatedData = $request->validate([
         'title' => 'required|max:255',
@@ -122,11 +122,14 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user, Page $page)
     {
-        $blog = Page::findOrFail($id);
+        $blog = Page::findOrFail($page->id);
         $blog->delete();
 
-        return redirect()->route('blogs.index')->with('message', 'Blog was deleted.');
+        $user = $page->user;
+        $pages =$user->pages;
+
+        return redirect()->route('blogs.edit', ['user' => $user, 'pages' => $pages])->with('message', 'Blog was deleted.');
     }
 }
