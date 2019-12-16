@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class OwnerTableSeeder extends Seeder
+class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class OwnerTableSeeder extends Seeder
     public function run()
     {
       //create 10 owners.
-      factory(App\Owner::class, 10)->create();
+      factory(App\User::class, 10)->create();
     }
 }

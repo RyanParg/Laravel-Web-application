@@ -10,8 +10,8 @@ class Page extends Model
   /**
   * Each Page has only one owner.
    */
-  public function owner(){
-    return $this->belongsTo('App\Owner');
+  public function user(){
+    return $this->belongsTo('App\User');
   }
 
   public function getRouteKeyName()

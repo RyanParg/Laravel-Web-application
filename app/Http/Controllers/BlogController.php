@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Page;
-use App\Owner;
+use App\User;
 
 class BlogController extends Controller
 {
@@ -15,7 +15,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $users = Owner::all();
+        $users = User::all();
 
         return view('blogs.index', ['users' => $users]);
     }
@@ -27,7 +27,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $owners = Owner::orderBy('name', 'asc')->get();
+        $owners = User::orderBy('name', 'asc')->get();
         return view('blogs.create', ['owners' => $owners]);
     }
 
@@ -59,14 +59,14 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Owner $user)
+    public function show(User $user)
     {
         $pages = $user->pages;
 
         return view('blogs.show', ['user' => $user, 'pages' => $pages]);
     }
 
-    public function showUserPosts(Owner $user, Page $page)
+    public function showUserPosts(User $user, Page $page)
     {
 
       return view('blogs.show_user_posts',['page' =>$page]);
@@ -78,9 +78,10 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+      $pages = $user->pages;
+      return view('blogs.edit', ['user' => $user, 'pages' => $pages]);
     }
 
     /**

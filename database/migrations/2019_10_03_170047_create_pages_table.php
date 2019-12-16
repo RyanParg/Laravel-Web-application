@@ -22,9 +22,9 @@ class CreatePagesTable extends Migration
             $table->string('content');
             $table->timestamps();
 
-            $table->bigInteger('owner_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             //makes owner id a foreign key in pages table.
-            $table->foreign('owner_id')->references('id')->on('owners')
+            $table->foreign('user_id')->references('id')->on('users')
               ->onDelete('cascade')->onUpdate('cascade');
         });
     }

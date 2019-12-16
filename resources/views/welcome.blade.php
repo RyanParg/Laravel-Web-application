@@ -86,8 +86,13 @@
 
                 <div class="links">
 
+                  @if (Auth::user())
                     <a href="{{ route('blogs.index')}}">Blogs</a>
-                    <a href="{{ route('blogs.index')}}">Your Blogs</a>
+                    <a href="{{ route('blogs.edit', ['user' => Auth::user()])}}">Your Blogs</a>
+                  @else
+                    <p>You must be logged in to access the blogs!</p>
+
+                  @endif
 
                 </div>
             </div>
