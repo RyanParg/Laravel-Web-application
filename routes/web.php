@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/comments', 'CommentController@page');
+
 
 Route::get('blogs', 'BlogController@index')->name('blogs.index')->middleware('auth');
 
@@ -27,7 +29,7 @@ Route::post('blogs/{user}/{page}', 'BlogController@storeUpdate')->name('blogs.st
 
 Route::get('blogs/{user}', 'BlogController@show')->name('blogs.show')->middleware('auth');
 
-Route::get('{blogs/{user}}/{page}', 'BlogController@showUserPosts')->name('blogs.show_user_posts')->middleware('auth');
+Route::get('blogs/{user}}/{page}', 'BlogController@showUserPosts')->name('blogs.show_user_posts')->middleware('auth');
 
 Route::get('{user}/blogs/{page}/update', 'BlogController@update')->name('blogs.update')->middleware('user');
 
