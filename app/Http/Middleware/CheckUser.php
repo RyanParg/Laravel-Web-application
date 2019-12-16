@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
-
 class CheckUser
 {
     /**
@@ -16,10 +15,10 @@ class CheckUser
      */
     public function handle($request, Closure $next)
     {
-        if($request->exists(Auth::user()->id)){
+      if($request->route('user') == Auth::user()){
         return $next($request);
       }else{
-        return response("NONONONONONONONONONON");
+        return response("You do not have the correct permissions to access this page!!");
       }
     }
 }

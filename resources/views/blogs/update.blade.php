@@ -1,15 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Create Blog')
+@section('title', 'Update Page')
 
 @section('content')
-  <form method="POST" action="{{ route('blogs.store') }}">
+
+  <form method="POST" action="{{ route('blogs.storeUpdate',['page'=>$page]) }}">
     @csrf
+
     <p>Title: <input type="text" name="title"
-      value="{{ old('title') }}"></p>
+      value="{{ $page->title }}"></p>
 
       <p>Content: <input type="text" name="content"
-        value="{{ old('content') }}"></p>
+        value="{{ $page->content }}"></p>
 
     <input type="submit" value="Submit">
     <a href="{{ route('blogs.edit', ['user' => Auth::user()]) }}">Cancel</a>

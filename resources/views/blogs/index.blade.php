@@ -10,6 +10,4 @@
 
     @endforeach
   </ul>
-
-  <a href="{{ route('blogs.create' )}}">Create Blog</a>
 @endsection

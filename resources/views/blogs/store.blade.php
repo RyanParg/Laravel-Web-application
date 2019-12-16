@@ -11,5 +11,5 @@
     @endforeach
   </ul>
 
-  <a href="{{ route('blogs.create' )}}">Create Blog</a>
+  <a href="{{  route('blogs.edit', ['user' => Auth::user()]) }}">Create Blog</a>
 @endsection

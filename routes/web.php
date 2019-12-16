@@ -22,9 +22,15 @@ Route::get('blogs/create', 'BlogController@create')->name('blogs.create')->middl
 
 Route::post('blogs', 'BlogController@store')->name('blogs.store')->middleware('auth');
 
+Route::post('blogs/{page}', 'BlogController@storeUpdate')->name('blogs.storeUpdate')->middleware('auth');
+
+
 Route::get('blogs/{user}', 'BlogController@show')->name('blogs.show')->middleware('auth');
 
-Route::get('blogs/{user}/{page}', 'BlogController@showUserPosts')->name('blogs.show_user_posts')->middleware('auth');
+Route::get('{blogs/{user}}/{page}', 'BlogController@showUserPosts')->name('blogs.show_user_posts')->middleware('auth');
+
+Route::get('{user}/blogs/{page}/update', 'BlogController@update')->name('blogs.update')->middleware('user');
+
 
 Route::delete('blogs/{id}', 'BlogController@destroy')->name('blogs.destroy')->middleware('auth');
 
