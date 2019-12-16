@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 
 class CheckUser
 {
@@ -15,8 +16,7 @@ class CheckUser
      */
     public function handle($request, Closure $next)
     {
-        $authorizedName = $request->exists(Auth::user());
-        if($authorizedName){
+        if($request->exists(Auth::user()->id)){
         return $next($request);
       }else{
         return response("NONONONONONONONONONON");
