@@ -37,9 +37,11 @@
         methods:{
           createComment:function(){
             axios.post("{{ route('api.comments.store') }}",{
-              content: this.newCommentContent
+              content: this.newCommentContent,
+              user_id: 2,
+              page_id: 3
             })
-            .then(function(response){
+            .then(response=>{
               this.newCommentContent='';
               //success
               this.comments.push(response.data);

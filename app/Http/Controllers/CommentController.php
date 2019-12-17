@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Page;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -14,7 +15,6 @@ class CommentController extends Controller
     }
 
     public function apiIndex(){
-
       $comments = Comment::all();
       return $comments;
     }
@@ -22,6 +22,8 @@ class CommentController extends Controller
     public function apiStore(Request $request){
       $e = new Comment;
       //do validation !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      $e->user_id = $request['user_id'];
+      $e->page_id = $request['page_id'];
       $e->content = $request['content'];
       $e->save();
 
