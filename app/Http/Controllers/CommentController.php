@@ -14,8 +14,9 @@ class CommentController extends Controller
       return view('comments.index');
     }
 
-    public function apiIndex(){
-      $comments = Comment::all();
+    public function apiIndex($id){
+      $page = Page::find($id);
+      $comments = $page->comments;
       return $comments;
     }
 

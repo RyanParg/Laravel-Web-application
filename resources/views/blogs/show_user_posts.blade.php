@@ -17,7 +17,7 @@
 <h2>Comments</h2>
 <div id="root">
   <ul>
-    <li v-for="comment in filterComments(comments)">@{{ comment.content }}</li>
+    <li v-for="comment in comments">@{{ comment.content }}</li>
   </ul>
 
   Comment: <input type="text" id="input" v-model="newCommentContent">
@@ -35,7 +35,7 @@
         newCommentContent: '',
       },
       mounted(){
-        axios.get("{{ route('api.comments.index') }}").then(response => {
+        axios.get("{{ route('api.comments.index', ['id'=> $page->id]) }}").then(response => {
           //success
           this.comments = response.data;
         })
@@ -48,8 +48,8 @@
         createComment:function(){
           axios.post("{{ route('api.comments.store') }}",{
             content: this.newCommentContent,
-            user_id: 2,
-            page_id: 3
+            user_id: {{Auth::user()->id}},
+            page_id: {{$page->id}}
           })
           .then(response=>{
             this.newCommentContent='';
@@ -62,13 +62,6 @@
             console.log(response);
           })
         }
-
-        filterComments: function(comments){
-          return comments.filter(function (comment){
-            return comment.page_id == {{$page->id}};
-          }
-        }
-
       }
     });
   </script>
