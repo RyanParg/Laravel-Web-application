@@ -25,7 +25,7 @@
           newCommentContent: '',
         },
         mounted(){
-          axios.get("{{ route('api.comments.index') }}").then(response => {
+          axios.get("{{ route('api.comments.index',['page', 2]) }}").then(response => {
             //success
             this.comments = response.data;
           })

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Page;
+use App\User;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -17,6 +18,10 @@ class CommentController extends Controller
     public function apiIndex($id){
       $page = Page::find($id);
       $comments = $page->comments;
+
+      foreach ($comments as $comment) {
+        $comment->user_id = User::find($comment->user_id)->name;
+      }
       return $comments;
     }
 

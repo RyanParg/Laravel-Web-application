@@ -17,7 +17,7 @@
 <h2>Comments</h2>
 <div id="root">
   <ul>
-    <li v-for="comment in comments">@{{ comment.content }}</li>
+    <li v-for="comment in comments">Posted By: @{{ comment.user_id }} <br> @{{ comment.content }} </li>
   </ul>
 
   Comment: <input type="text" id="input" v-model="newCommentContent">

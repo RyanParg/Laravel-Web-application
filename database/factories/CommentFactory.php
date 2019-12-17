@@ -14,6 +14,6 @@ $factory->define(Comment::class, function (Faker $faker) {
       'user_id' =>App\User::inRandomOrder()->first()->id,
 
       'page_id' =>App\Page::inRandomOrder()->first()->id,
-      
+
     ];
 });
