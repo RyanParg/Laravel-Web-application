@@ -7,6 +7,7 @@ use App\Page;
 use App\User;
 use App\PageView;
 use Auth;
+use Storage;
 
 class BlogController extends Controller
 {
@@ -45,12 +46,17 @@ class BlogController extends Controller
       $validatedData = $request->validate([
         'title' => 'required|max:255',
         'content' => 'required|max:1000',
+        'image'=>'required|image|mimes:jpeg,png,jpg,gif|max:2048',
       ]);
+
+      $imageName = time().'.'.request()->image->getClientOriginalExtension();
+      request()->image->move(storage_path('app/public'), $imageName);
 
       $b = new Page;
       $b->title = $validatedData['title'];
       $b->content = $validatedData['content'];
       $b->user_id = Auth::user()->id;
+      $b->image = $imageName;
       $b->save();
       $user = Auth::user();
       $pages = $user->pages;
@@ -75,6 +81,7 @@ class BlogController extends Controller
     public function showUserPosts(User $user, Page $page)
     {
       PageView::logView($page);
+      echo asset("$page->image");
       return view('blogs.show_user_posts',['page' =>$page]);
     }
 

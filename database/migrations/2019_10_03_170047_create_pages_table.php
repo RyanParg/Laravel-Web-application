@@ -20,7 +20,7 @@ class CreatePagesTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('content');
-            $table->binary('image')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
 
             $table->bigInteger('user_id')->unsigned();

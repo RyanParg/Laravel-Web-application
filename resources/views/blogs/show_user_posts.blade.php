@@ -8,7 +8,7 @@
   <h1>{{$page->title}}</h1>
 
 
-  <img src="/storage/images/{{$page->image}}">
+  <img src="{{asset("storage/$page->image")}}">
 
 
   <p>{{$page->content}}</p>
