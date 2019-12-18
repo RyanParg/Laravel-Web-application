@@ -25,7 +25,7 @@ class CommentController extends Controller
       return $comments;
     }
 
-    public function apiStore(Request $request){
+    public function apiStore(Request $request, $id){
       $e = new Comment;
       //do validation !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       $e->user_id = $request['user_id'];
@@ -33,7 +33,21 @@ class CommentController extends Controller
       $e->content = $request['content'];
       $e->save();
 
+      $page = Page::find($id);
+      $comments = $page->comments;
+
+      foreach ($comments as $comment) {
+        $e->user_id = User::find($comment->user_id)->name;
+      }
+
       return $e;
+    }
+
+
+    public function apiEdit(Request $request){
+
+      $e = Comment::find(app()->make('comment_id'));
+      
     }
     /**
      * Display a listing of the resource.

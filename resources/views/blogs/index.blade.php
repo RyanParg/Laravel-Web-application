@@ -9,5 +9,7 @@
       <li><a href="{{ route('blogs.show', ['user' => $user])}}">{{ $user->name }}</a></li>
 
     @endforeach
+    {{ $users->links()}}
+
   </ul>
 @endsection

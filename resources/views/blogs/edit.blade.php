@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('title', 'Blog Details')
@@ -8,9 +9,12 @@
 
 <ul>
   @foreach ($pages as $page)
-    <li><a href="{{ route('blogs.update', ['user' => $user, 'page' => $page])}}">{{ $page->title }}</a></li>
+    <li><a href="{{ route('blogs.update', ['user' => $user, 'page' => $page])}}">{{ $page->title }}</a>
+      {{$numViews->where('page_id', $page->id)->count()}} </li>
 
   @endforeach
+
+  {{$pages->links()}}
 </ul>
 
 <a href="{{ route('blogs.create' )}}">Create Blog</a>

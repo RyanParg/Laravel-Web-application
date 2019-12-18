@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Page;
 use App\User;
+use App\PageView;
 use Auth;
 
 class BlogController extends Controller
@@ -16,7 +17,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(10);
+
 
         return view('blogs.index', ['users' => $users]);
     }
@@ -64,14 +66,15 @@ class BlogController extends Controller
      */
     public function show(User $user)
     {
-        $pages = $user->pages;
+
+        $pages = Page::where('user_id',$user->id)->paginate(15);
 
         return view('blogs.show', ['user' => $user, 'pages' => $pages]);
     }
 
     public function showUserPosts(User $user, Page $page)
     {
-
+      PageView::logView($page);
       return view('blogs.show_user_posts',['page' =>$page]);
     }
 
@@ -83,8 +86,15 @@ class BlogController extends Controller
      */
     public function edit(User $user)
     {
-      $pages = $user->pages;
-      return view('blogs.edit', ['user' => $user, 'pages' => $pages]);
+      $numViews = PageView::get();
+
+      if($user->isAdmin()){
+        $pages = Page::paginate(15);
+      }else{
+        $pages = Page::where('user_id',$user->id)->paginate(15);
+    }
+
+      return view('blogs.edit', ['user' => $user, 'pages' => $pages, 'numViews' => $numViews]);
     }
 
     /**

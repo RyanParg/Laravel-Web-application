@@ -8,6 +8,8 @@
   <h1>{{$page->title}}</h1>
 
 
+  <img src="/storage/images/{{$page->image}}">
+
 
   <p>{{$page->content}}</p>
 
@@ -46,7 +48,7 @@
       },
       methods:{
         createComment:function(){
-          axios.post("{{ route('api.comments.store') }}",{
+          axios.post("{{ route('api.comments.store', ['id'=> $page->id]) }}",{
             content: this.newCommentContent,
             user_id: {{Auth::user()->id}},
             page_id: {{$page->id}}

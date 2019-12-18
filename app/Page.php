@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
-
   /**
   * Each Page has only one owner.
    */

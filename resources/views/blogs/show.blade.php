@@ -10,6 +10,8 @@
       <li><a href="{{ route('blogs.show_user_posts', ['user' => $user, 'page' => $page])}}">{{ $page->title }}</a></li>
 
     @endforeach
+
+    {{$pages->links()}}
   </ul>
 
 

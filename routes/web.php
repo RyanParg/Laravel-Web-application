@@ -25,20 +25,20 @@ Route::get('blogs/create', 'BlogController@create')->name('blogs.create')->middl
 
 Route::post('blogs', 'BlogController@store')->name('blogs.store')->middleware('auth');
 
-Route::post('blogs/{user}/{page}', 'BlogController@storeUpdate')->name('blogs.storeUpdate')->middleware('user');
+Route::post('blogs/{user}/{page}', 'BlogController@storeUpdate')->name('blogs.storeUpdate')->middleware('check_admin');
 
 
 Route::get('blogs/{user}', 'BlogController@show')->name('blogs.show')->middleware('auth');
 
 Route::get('blogs/{user}}/{page}', 'BlogController@showUserPosts')->name('blogs.show_user_posts')->middleware('auth');
 
-Route::get('{user}/blogs/{page}/update', 'BlogController@update')->name('blogs.update')->middleware('user');
+Route::get('{user}/blogs/{page}/update', 'BlogController@update')->name('blogs.update')->middleware('check_admin');
 
 
-Route::delete('blogs/{user}/{page}', 'BlogController@destroy')->name('blogs.destroy')->middleware('user');
+Route::delete('blogs/{user}/{page}', 'BlogController@destroy')->name('blogs.destroy')->middleware('check_admin');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('{user}/edit/blogs', 'BlogController@edit')->name('blogs.edit')->middleware('user');
+Route::get('{user}/edit/blogs', 'BlogController@edit')->name('blogs.edit')->middleware('check_admin');
