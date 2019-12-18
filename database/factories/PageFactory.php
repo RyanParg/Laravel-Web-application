@@ -12,8 +12,6 @@ $factory->define(Page::class, function (Faker $faker) {
 
       'content' => $faker->realText(200),
 
-      'image' => $faker->image('storage/app/public',400,300),
-
       //assigns a owner id to this page to enforce the one to many relationship.
       'user_id' =>App\User::inRandomOrder()->first()->id,
     ];

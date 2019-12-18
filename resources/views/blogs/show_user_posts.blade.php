@@ -7,9 +7,9 @@
 
   <h1>{{$page->title}}</h1>
 
-
-  <img src="{{asset("storage/$page->image")}}">
-
+  @if($page->image)
+    <img src="{{asset("storage/$page->image")}}">
+  @endif
 
   <p>{{$page->content}}</p>
 

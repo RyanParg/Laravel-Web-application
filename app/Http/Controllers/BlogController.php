@@ -8,6 +8,7 @@ use App\User;
 use App\PageView;
 use Auth;
 use Storage;
+use File;
 
 class BlogController extends Controller
 {
@@ -81,7 +82,6 @@ class BlogController extends Controller
     public function showUserPosts(User $user, Page $page)
     {
       PageView::logView($page);
-      echo asset("$page->image");
       return view('blogs.show_user_posts',['page' =>$page]);
     }
 
@@ -141,9 +141,12 @@ class BlogController extends Controller
      */
     public function destroy(User $user, Page $page)
     {
-        $blog = Page::findOrFail($page->id);
-        $blog->delete();
 
+        $image_path = "storage/$page->image";
+        if(File::exists($image_path)) {
+        File::delete($image_path);
+        }
+        $page->delete();
         $user = $page->user;
         $pages =$user->pages;
 
