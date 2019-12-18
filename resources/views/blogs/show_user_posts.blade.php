@@ -13,6 +13,15 @@
 
   <p>{{$page->content}}</p>
 
+<br>
+
+<h3>Tags</h3>
+<div>
+
+@foreach ($page->tags as $tag)
+    # {{$tag->name}} ,
+@endforeach
+</div>
 
 
 
