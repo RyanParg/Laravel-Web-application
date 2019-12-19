@@ -25,6 +25,9 @@ Route::get('blogs/create', 'BlogController@create')->name('blogs.create')->middl
 
 Route::post('blogs', 'BlogController@store')->name('blogs.store')->middleware('auth');
 
+Route::post('profile', 'ProfileController@store')->name('profile.store')->middleware('auth');
+
+
 Route::post('blogs/{user}/{page}', 'BlogController@storeUpdate')->name('blogs.storeUpdate')->middleware('check_admin');
 
 

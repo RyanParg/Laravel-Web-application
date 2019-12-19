@@ -100,8 +100,8 @@ class BlogController extends Controller
       }else{
         $pages = Page::where('user_id',$user->id)->paginate(15);
     }
-
-      return view('blogs.edit', ['user' => $user, 'pages' => $pages, 'numViews' => $numViews]);
+      $allUsers = User::get();
+      return view('blogs.edit', ['user' => $user, 'pages' => $pages, 'numViews' => $numViews, 'allUsers' => $allUsers]);
     }
 
     /**

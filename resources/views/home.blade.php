@@ -13,8 +13,26 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    You are logged in!<br>
+                    Welcome {{Auth::user()->name}}<br>
+                    <form method="POST" action="{{ route('profile.store') }}" >
+                      @csrf
+                      @if(Auth::user()->profile)
+                        <p>Bio: <textarea type="text" name="bio"
+                        >{{ Auth::user()->profile->bio }}</textarea></p>
 
-                    You are logged in!
+                        <p>Phone Number: <input type="text" name="phone_number"
+                        value="{{ Auth::user()->profile->phone_number }}"></p>
+                      @else
+                        <p>Bio: <textarea type="text" name="bio"
+                        ></textarea></p>
+
+                        <p>Phone Number: <input type="text" name="phone_number"
+                          ></p>
+                      @endif
+                        <input type="submit" value="Submit">
+
+                    </form>
                 </div>
             </div>
         </div>
