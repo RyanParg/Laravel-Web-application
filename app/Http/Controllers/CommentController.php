@@ -25,7 +25,7 @@ class CommentController extends Controller
     public function apiStore(Request $request, $id){
       $e = new Comment;
       $validatedData = $request->validate([
-        'content' => 'required|max:2',
+        'content' => 'required|max:100',
       ]);
       $e->user_id = $request['user_id'];
       $e->user_name = $request['user_name'];
@@ -39,7 +39,7 @@ class CommentController extends Controller
 
     public function apiEdit(Request $request){
       $validatedData = $request->validate([
-        'content' => 'required|max:2',
+        'content' => 'required|max:100',
       ]);
       $e = Comment::find($request['content_id']);
       $e->content = $validatedData['content'];

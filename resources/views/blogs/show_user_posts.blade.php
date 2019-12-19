@@ -30,11 +30,12 @@
     <ul>
       <li v-for="(comment,index) in comments">Posted By: @{{ comment.user_name }} <br> @{{ comment.content }}<br>
         <template v-if="comment.user_id == currentUserId">
-          <p>@{{errorMsg}}</p>
+          <p>@{{updateErrorMsg}}</p>
         Edit: <textarea v-model="updateCommentContent[index]"></textarea>
         <br><button v-on:click="updateComment(comment.id,index)">Edit</button></li>
       </template>
     </ul>
+    <p>@{{errorMsg}}</p>
   Comment: <input type="text" id="input" v-model="newCommentContent">
   <button @click="createComment">Create</button>
 </div>
@@ -51,6 +52,8 @@
         updateCommentContent: [],
         currentUserId: {{Auth::user()->id}},
         errorMsg: '',
+        updateErrorMsg: '',
+
       },
       mounted(){
         axios.get("{{ route('api.comments.index', ['id'=> $page->id]) }}").then(response => {
@@ -72,12 +75,13 @@
           })
           .then(response=>{
             //success
+            this.errorMsg = '';
             this.comments.push(response.data);
             this.newCommentContent='';
           })
-          .catch(response=>{
+          .catch(error=>{
             //error
-            console.log(response);
+            this.errorMsg = error.response.data.errors.content[0];
           })
         },
         updateComment:function(id,index){
@@ -86,13 +90,13 @@
             content: this.updateCommentContent[index],
           })
           .then(response=>{
-            this.errorMsg = '';
+            this.updateErrorMsg = '';
             Vue.set(this.comments, index, response.data );
             Vue.set(this.updateCommentContent, index, '' );
           })
           .catch(error=>{
             //error
-            this.errorMsg = error.response.data.errors.content[0];
+            this.updateErrorMsg = error.response.data.errors.content[0];
           })
         }
       }
