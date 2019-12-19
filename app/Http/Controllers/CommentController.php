@@ -24,26 +24,25 @@ class CommentController extends Controller
 
     public function apiStore(Request $request, $id){
       $e = new Comment;
-      //do validation !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      $validatedData = $request->validate([
+        'content' => 'required|max:2',
+      ]);
       $e->user_id = $request['user_id'];
+      $e->user_name = $request['user_name'];
       $e->page_id = $request['page_id'];
-      $e->content = $request['content'];
+      $e->content = $validatedData['content'];
       $e->save();
-
-      $page = Page::find($id);
-      $comments = $page->comments;
-
-      foreach ($comments as $comment) {
-        $e->user_id = User::find($comment->user_id)->name;
-      }
 
       return $e;
     }
 
 
     public function apiEdit(Request $request){
+      $validatedData = $request->validate([
+        'content' => 'required|max:2',
+      ]);
       $e = Comment::find($request['content_id']);
-      $e->content = $request['content'];
+      $e->content = $validatedData['content'];
       $e->save();
       return $e;
     }

@@ -28,8 +28,9 @@
 <h2>Comments</h2>
 <div id="root">
     <ul>
-      <li v-for="(comment,index) in comments">Posted By: @{{ comment.user_id }} <br> @{{ comment.content }}<br>
+      <li v-for="(comment,index) in comments">Posted By: @{{ comment.user_name }} <br> @{{ comment.content }}<br>
         <template v-if="comment.user_id == currentUserId">
+          <p>@{{errorMsg}}</p>
         Edit: <textarea v-model="updateCommentContent[index]"></textarea>
         <br><button v-on:click="updateComment(comment.id,index)">Edit</button></li>
       </template>
@@ -49,7 +50,7 @@
         newCommentContent: '',
         updateCommentContent: [],
         currentUserId: {{Auth::user()->id}},
-
+        errorMsg: '',
       },
       mounted(){
         axios.get("{{ route('api.comments.index', ['id'=> $page->id]) }}").then(response => {
@@ -66,6 +67,7 @@
           axios.post("{{ route('api.comments.store', ['id'=> $page->id]) }}",{
             content: this.newCommentContent,
             user_id: {{Auth::user()->id}},
+            user_name: "{{Auth::user()->name}}",
             page_id: {{$page->id}}
           })
           .then(response=>{
@@ -84,12 +86,13 @@
             content: this.updateCommentContent[index],
           })
           .then(response=>{
+            this.errorMsg = '';
             Vue.set(this.comments, index, response.data );
             Vue.set(this.updateCommentContent, index, '' );
           })
-          .catch(response=>{
+          .catch(error=>{
             //error
-            console.log(response);
+            this.errorMsg = error.response.data.errors.content[0];
           })
         }
       }
