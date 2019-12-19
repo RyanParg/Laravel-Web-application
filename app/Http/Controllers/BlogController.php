@@ -126,7 +126,6 @@ class BlogController extends Controller
       $b = Page::find($page->id);
       $b->title = $validatedData['title'];
       $b->content = $validatedData['content'];
-      $b->user_id = Auth::user()->id;
       $b->save();
       $user = Auth::user();
       $pages = $user->pages;

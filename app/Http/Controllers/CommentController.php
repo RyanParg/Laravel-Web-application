@@ -19,9 +19,6 @@ class CommentController extends Controller
       $page = Page::find($id);
       $comments = $page->comments;
 
-      foreach ($comments as $comment) {
-        $comment->user_id = User::find($comment->user_id)->name;
-      }
       return $comments;
     }
 
@@ -45,9 +42,10 @@ class CommentController extends Controller
 
 
     public function apiEdit(Request $request){
-
-      $e = Comment::find(app()->make('comment_id'));
-      
+      $e = Comment::find($request['content_id']);
+      $e->content = $request['content'];
+      $e->save();
+      return $e;
     }
     /**
      * Display a listing of the resource.
