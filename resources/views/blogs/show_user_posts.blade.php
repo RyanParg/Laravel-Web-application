@@ -108,4 +108,7 @@
       }
     });
   </script>
+
+  <p><a href="{{ route('blogs.show', ['user' => $page->user_id]) }}">Back</button>
+
 @endsection
