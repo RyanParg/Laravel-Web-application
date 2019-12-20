@@ -1,5 +1,8 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<style type="text/css">
+   body { background: url({{asset('storage/Background-website-01.jpg')}}) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+</style>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +24,7 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" class="container">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -76,6 +79,9 @@
         <main class="py-4">
             @yield('content')
         </main>
+    </div>
+    <div class="container">
+      @yield('comments')
     </div>
 </body>
 </html>

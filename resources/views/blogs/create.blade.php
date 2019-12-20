@@ -24,7 +24,16 @@
     <p>Content: <input type="text" name="content"
       value="{{ old('content') }}"></p>
 
-    <p>Content: <input type="file" name="image"></p>
+    <p>Tags: <input type="text" name="tag"
+        value="{{ old('tag') }}">
+
+        <input type="text" name="tag1"
+            value="{{ old('tag1') }}">
+
+        <input type="text" name="tag2"
+            value="{{ old('tag2') }}"></p>
+
+    <p>Image: <input type="file" name="image"></p>
 
     <input type="submit" value="Submit">
 

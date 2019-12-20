@@ -3,10 +3,11 @@
 @section('title', 'Blogs')
 
 @section('content')
-  <p>All Users:</p>
-  <ul>
+  
+  <h3>All Users:</h3>
+  <ul class="container">
     @foreach ($users as $user)
-      <li><a href="{{ route('blogs.show', ['user' => $user])}}">{{ $user->name }}</a></li>
+      <h4><li><a href="{{ route('blogs.show', ['user' => $user])}}">{{ $user->name }}</a></li></h4>
 
     @endforeach
     {{ $users->links()}}

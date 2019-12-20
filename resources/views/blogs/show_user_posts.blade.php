@@ -2,7 +2,11 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+@extends('layouts.app')
 
+@section('title', $page->title)
+
+@section('content')
 
 
   <h1>{{$page->title}}</h1>
@@ -11,7 +15,7 @@
     <img src="{{asset("storage/$page->image")}}">
   @endif
 
-  <p>{{$page->content}}</p>
+  <h5>{{$page->content}}</h5>
 
 <br>
 
@@ -26,6 +30,8 @@
 
 
 <h2>Comments</h2>
+@endsection
+@section('comments')
 <div id="root">
     <ul>
       <li v-for="(comment,index) in comments">Posted By: @{{ comment.user_name }} <br> @{{ comment.content }}<br>
@@ -102,3 +108,4 @@
       }
     });
   </script>
+@endsection

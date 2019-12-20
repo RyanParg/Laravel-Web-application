@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Page;
 use App\User;
+use App\Tag;
+
 use App\PageView;
 use Auth;
 use Storage;
@@ -47,22 +49,76 @@ class BlogController extends Controller
       $validatedData = $request->validate([
         'title' => 'required|max:255',
         'content' => 'required|max:1000',
-        'image'=>'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'tag' => 'max:30',
+        'tag1' => 'max:30',
+        'tag2' => 'max:30',
+        'image'=>'image|mimes:jpeg,png,jpg,gif|max:2048',
       ]);
 
-      $imageName = time().'.'.request()->image->getClientOriginalExtension();
-      request()->image->move(storage_path('app/public'), $imageName);
+
+
+
+
 
       $b = new Page;
       $b->title = $validatedData['title'];
       $b->content = $validatedData['content'];
       $b->user_id = Auth::user()->id;
+
+      if($request['image']){
+      $imageName = time().'.'.request()->image->getClientOriginalExtension();
+      request()->image->move(storage_path('app/public'), $imageName);
       $b->image = $imageName;
+      }
+
       $b->save();
+
+      $tag = $request['tag'];
+      if($tag){
+        $t = Tag::where('name', $tag)->get()->first();
+        if($t){
+          return;
+        }
+        $t = new Tag;
+        $t->name = $tag;
+        $t->save();
+        $t->pages()->attach($b->id);
+      }
+      $tag = $request['tag1'];
+
+      if($tag){
+        $t = Tag::where('name', $tag)->get()->first();
+        if($t){
+          return;
+        }
+        $t = new Tag;
+        $t->name = $tag;
+        $t->save();
+        $t->pages()->attach($b->id);
+      }
+
+      $tag = $request['tag2'];
+
+      if($tag){
+        $t = Tag::where('name', $tag)->get()->first();
+        if($t){
+          return;
+        }
+        $t = new Tag;
+        $t->name = $tag;
+        $t->save();
+        $t->pages()->attach($b->id);
+      }
+
+
       $user = Auth::user();
       $pages = $user->pages;
       session()->flash('message', 'Page was created.');
       return redirect()->route('blogs.edit', ['user' => $user, 'pages' => $pages]);
+    }
+
+    private function checkTags($tag, $page){
+
     }
 
     /**

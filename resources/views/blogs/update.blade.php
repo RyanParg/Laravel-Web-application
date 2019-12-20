@@ -7,13 +7,16 @@
   <form method="POST" action="{{ route('blogs.storeUpdate',['user'=>$page->user,'page'=>$page]) }}">
     @csrf
 
-    <p>Title: <input type="text" name="title"
-      value="{{ $page->title }}"></p>
+    <p>Title:</p>
+     <textarea type="text" name="title">
+      {{ $page->title }}</textarea>
 
-      <p>Content: <input type="text" name="content"
-        value="{{ $page->content }}"></p>
+      <p>Content: </p>
+      <textarea type="text" name="content"
+        >{{ $page->content }}</textarea>
+    <br>
+    <p><input type="submit" value="Submit"></p>
 
-    <input type="submit" value="Submit">
     <a href="{{ route('blogs.edit', ['user' => Auth::user()]) }}">Cancel</a>
   </form>
 
@@ -22,6 +25,7 @@
   action="{{ route('blogs.destroy', ['user' => $page->user, 'page' => $page]) }}">
   @csrf
   @method('DELETE')
+  <br>
   <button type="submit">Delete</button>
 </form>
 

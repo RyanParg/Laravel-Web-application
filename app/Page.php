@@ -24,6 +24,6 @@ class Page extends Model
 
   public function getRouteKeyName()
   {
-    return 'title';
+    return 'id';
   }
 }
