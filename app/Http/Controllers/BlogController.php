@@ -76,38 +76,38 @@ class BlogController extends Controller
       $tag = $request['tag'];
       if($tag){
         $t = Tag::where('name', $tag)->get()->first();
-        if($t){
-          return;
-        }
+        if($t == null){
+
         $t = new Tag;
         $t->name = $tag;
         $t->save();
         $t->pages()->attach($b->id);
+        }
       }
       $tag = $request['tag1'];
 
       if($tag){
         $t = Tag::where('name', $tag)->get()->first();
-        if($t){
-          return;
-        }
+        if($t == null){
+
         $t = new Tag;
         $t->name = $tag;
         $t->save();
         $t->pages()->attach($b->id);
+        }
       }
 
       $tag = $request['tag2'];
 
       if($tag){
         $t = Tag::where('name', $tag)->get()->first();
-        if($t){
-          return;
-        }
+        if($t == null){
+
         $t = new Tag;
         $t->name = $tag;
         $t->save();
         $t->pages()->attach($b->id);
+        }
       }
 
 
@@ -117,9 +117,6 @@ class BlogController extends Controller
       return redirect()->route('blogs.edit', ['user' => $user, 'pages' => $pages]);
     }
 
-    private function checkTags($tag, $page){
-
-    }
 
     /**
      * Display the specified resource.
